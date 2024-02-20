@@ -1,0 +1,20 @@
+name: "JDownloader2"
+description: "JDownloader2 for HomeAssistant"
+version: "1.0.1"
+slug: "jdownloader2-hass"
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: services
+ports:
+  5800/tcp: 5800  
+url: 'https://google.de'
+webui: 'http://[HOST]:[PORT:5800]'
+boot: auto
+backup: hot
+map:
+  - share:rw
