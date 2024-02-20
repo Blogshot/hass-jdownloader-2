@@ -1,6 +1,6 @@
 name: "JDownloader2"
 description: "JDownloader2 for HomeAssistant"
-version: "1.0.2a"
+version: "1.0.2b"
 slug: "jdownloader2-hass"
 init: false
 arch:

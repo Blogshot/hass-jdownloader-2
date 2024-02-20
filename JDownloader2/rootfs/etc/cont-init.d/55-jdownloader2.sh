@@ -3,12 +3,7 @@
 set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
 
-# Make sure mandatory directories exist.
-echo "JDownloader 2 - Create log directory" >> /dev/stdout
-mkdir -p /config/logs
-
 # Set default configuration on new install.
-
 if [ ! -f /config/JDownloader.jar ]; then
     echo "JDownloader 2 - Setting default configuration on new install" >> /dev/stdout
     cp /defaults/JDownloader.jar /config/
@@ -48,8 +43,3 @@ else
     # Dark mode enabled.  Force theme.
     jq -c -M '.lookandfeeltheme = "FLATLAF_DRACULA"' /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json | sponge /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json
 fi
-
-# Take ownership of the output directory.
-mkdir /share/jdownloader
-
-# vim:ft=sh:ts=4:sw=4:et:sts=4
