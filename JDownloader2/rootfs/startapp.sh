@@ -12,7 +12,7 @@ unset MYJDOWNLOADER_PASSWORD
 
 log_debug() {
     if is-bool-val-true "${CONTAINER_DEBUG:-0}"; then
-        echo "$@"
+        echo "$@" >> /dev/stdout
     fi
 }
 

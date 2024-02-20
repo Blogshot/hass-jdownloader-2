@@ -4,15 +4,19 @@ set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
 
 # Make sure mandatory directories exist.
+echo "JDownloader 2 - Create log directory" >> /dev/stdout
 mkdir -p /config/logs
 
 # Set default configuration on new install.
+
 if [ ! -f /config/JDownloader.jar ]; then
+    echo "JDownloader 2 - Setting default configuration on new install" >> /dev/stdout
     cp /defaults/JDownloader.jar /config/
     cp -r /defaults/cfg /config/
 fi
 
 # Set MyJDownloader credentials.
+echo "JDownloader 2 - Setting Credentials" >> /dev/stdout
 if [ -n "${MYJDOWNLOADER_EMAIL:-}" ] && [ -n "${MYJDOWNLOADER_PASSWORD:-}" ]
 then
     jq -c -M ".email=\"$MYJDOWNLOADER_EMAIL\" | .password = \"$(echo "$MYJDOWNLOADER_PASSWORD" | sed 's/"/\\"/g')\"" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json | sponge /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json
@@ -27,10 +31,10 @@ fi
 if [ -n "${JDOWNLOADER_MAX_MEM:-}" ]; then
     if ! echo "$JDOWNLOADER_MAX_MEM" | grep -q "^[0-9]\+[g|G|m|M|k|K]$"
     then
-        echo "ERROR: invalid value for JDOWNLOADER_MAX_MEM variable: '$JDOWNLOADER_MAX_MEM'."
+        echo "ERROR: invalid value for JDOWNLOADER_MAX_MEM variable: '$JDOWNLOADER_MAX_MEM'." >> /dev/sterr
         exit 1
     fi
-    echo "JDownloader 2 maximum memory is set to $JDOWNLOADER_MAX_MEM"
+    echo "JDownloader 2 maximum memory is set to $JDOWNLOADER_MAX_MEM" >> /dev/stdout
 fi
 
 # Handle dark mode change.
