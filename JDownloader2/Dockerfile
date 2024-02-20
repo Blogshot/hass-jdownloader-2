@@ -23,8 +23,9 @@ ARG JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
 ARG JDOWNLOADER_URL
 RUN \
     apk --no-cache add curl && \
-    mkdir -p /defaults && \
-    curl -# -L -o /defaults/JDownloader.jar ${JDOWNLOADER_URL}
+    mkdir -p /defaults
+
+RUN curl -# -L -o /defaults/JDownloader.jar ${JDOWNLOADER_URL}
 
 # Define working directory.
 WORKDIR /tmp
