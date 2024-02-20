@@ -20,7 +20,6 @@ FROM $BUILD_FROM
 ARG JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
 
 # Download JDownloader2
-ARG JDOWNLOADER_URL
 RUN \
     apk --no-cache add curl && \
     mkdir -p /defaults
