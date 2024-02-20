@@ -13,7 +13,7 @@
 #       is not constant across architectures (32/64 bits) and glibc/musl.
 #
 
-ARG BUILD_FROM
+ARG BUILD_FROM="alpine:latest"
 FROM $BUILD_FROM
 
 # Define software download URLs.
@@ -25,14 +25,14 @@ RUN \
     apk --no-cache add curl && \
     mkdir -p /defaults
 
-RUN curl -# -L -o /defaults/JDownloader.jar ${JDOWNLOADER_URL}
+RUN curl -L -o /defaults/JDownloader.jar ${JDOWNLOADER_URL}
 
 # Define working directory.
 WORKDIR /tmp
 
 # Install dependencies.
 RUN \
-    add-pkg \
+    apk add \
         java-common \
         openjdk8-jre \
         # Needed by the init script.
@@ -47,17 +47,13 @@ RUN \
         moreutils
 
 # Generate and install favicons.
-RUN \
-    APP_ICON_URL=https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/jdownloader-2-icon.png && \
-    install_app_icon.sh "$APP_ICON_URL"
+#RUN \
+#    APP_ICON_URL=https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/jdownloader-2-icon.png && \
+#    install_app_icon.sh "$APP_ICON_URL"
 
 # Add files.
 COPY rootfs/ /
 
-# Set internal environment variables.
-RUN \
-    set-cont-env APP_NAME "JDownloader 2" && \
-    true
 
 # Set public environment variables.
 ENV \
@@ -67,9 +63,8 @@ ENV \
     JDOWNLOADER_HEADLESS=0 \
     JDOWNLOADER_MAX_MEM=
 
-# Define mountable directories.
-VOLUME ["/output"]
-
 # Expose ports.
 #   - 3129: For MyJDownloader in Direct Connection mode.
 #EXPOSE 3129
+
+CMD [ "/startapp.sh" ]
