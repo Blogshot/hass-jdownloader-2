@@ -1,0 +1,4 @@
+# https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
+name: "Inofficial JDownloader2 Home Assistant add-on repository"
+url: 'https://github.com/Blogshot/hass-jdownloader-2'
+maintainer: Blogshot
