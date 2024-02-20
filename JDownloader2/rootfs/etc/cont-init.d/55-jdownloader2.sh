@@ -46,6 +46,7 @@ else
 fi
 
 # Take ownership of the output directory.
-take-ownership --not-recursive /output
+mkdir /share/jdownloader
+take-ownership --not-recursive /share/jdownloader
 
 # vim:ft=sh:ts=4:sw=4:et:sts=4
